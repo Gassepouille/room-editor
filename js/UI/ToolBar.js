@@ -18,10 +18,15 @@ export default class ToolBar {
                         }
                 })
         }
+        addTool(tool){
+                this.data.tools.push(tool);
+        }
         get _template() {
                 return `
 			<div class="toolbar" v-if="display">
-			
+                                <div class="toolbar-tool" v-for="tool in tools">
+
+                                </div>
 			</div>
 		`
         }

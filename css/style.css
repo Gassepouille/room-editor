@@ -1,4 +1,5 @@
 @import 'reset.css';
+@import 'UI/toolbar.css';
 
 html, body, #editor{
         width:100%;

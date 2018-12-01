@@ -20,6 +20,7 @@ export default class App {
                 this._player.scene.add(this._world.object3d);
         }
         _initUI(){
-                this._toolBar = new toolbar();
+                this._toolBar = new ToolBar();
+                this._view = new Vue({ el: '#ui' });
         }
 }
