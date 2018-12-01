@@ -1,4 +1,4 @@
-import ToolOrbit from './UI/ToolBar.js';
+import ToolBar from './UI/ToolBar.js';
 import Player from './Player.js';
 import ToolOrbit from './tools/ToolOrbit.js';
 import World from './objects/World.js';

@@ -4,7 +4,8 @@ export default class ToolBar {
                 this.data = {
 			tools :[],
 			display:true,
-                })
+		}
+		
                 let _this = this;
                 Vue.component('toolbar', {
                         template: _this._template,
