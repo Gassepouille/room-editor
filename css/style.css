@@ -6,3 +6,20 @@ html, body, #editor{
         height:100%;
         overflow: hidden;
 }
+
+@font-face {
+    font-family: "champagne";
+    src: url("../fonts/Champagne.woff") format('woff');
+}
+@font-face {
+    font-family: "champagneBold";
+    src: url("../fonts/ChampagneBold.woff") format('woff');
+}
+@font-face {
+    font-family: "champagneItalic";
+    src: url("../fonts/ChampagneItalic.woff") format('woff');
+}
+@font-face {
+    font-family: "champagneBoldItalic";
+    src: url("../fonts/ChampagneBoldItalic.woff") format('woff');
+}

@@ -3,7 +3,8 @@ export default class ToolBar {
 		// use Object.assign if inherited class
                 this.data = {
 			tools :[],
-			display:true,
+                        display:true,
+                        activeTool:"wall",
 		}
 		
                 let _this = this;
@@ -11,9 +12,10 @@ export default class ToolBar {
                         template: _this._template,
                         data() { return _this.data; },
                         methods: {
-                                clickScansAction(item) {
-                                        if (_this.data.listScansAction) _this.data.listScansAction(item);
-                                        _this.data.displayScansMenu = false;
+                                clickTool(tool) {
+                                        if (_this.data.activeTool === tool.name) return;
+                                        tool.callback();
+                                        _this.data.activeTool = tool.name;
                                 }
                         }
                 })
@@ -24,8 +26,10 @@ export default class ToolBar {
         get _template() {
                 return `
 			<div class="toolbar" v-if="display">
-                                <div class="toolbar-tool" v-for="tool in tools">
-
+                                <div class="toolbar-tool" v-for="tool in tools" >
+                                        <div v-bind:class="[activeTool === tool.name ? 'active' : '', 'tool-icon']" v-bind:tooltip="tool.name" @click="clickTool(tool)">
+                                                <img v-if="tool.icon" v-bind:src="tool.icon">
+                                        </div>
                                 </div>
 			</div>
 		`

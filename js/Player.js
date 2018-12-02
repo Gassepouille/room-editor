@@ -9,7 +9,7 @@ export default class Player {
                 this.rendererDomElement = this._renderer.domElement;
                 this._container.appendChild(this._renderer.domElement);
                 // Camera + scene
-                this._camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 1000);
+                this._camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 1000);
                 this._camera.position.set(3, 3, 3);
                 this._camera.lookAt(new THREE.Vector3(0, 0, 0));
                 this.scene = new THREE.Scene();
