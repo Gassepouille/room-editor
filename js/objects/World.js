@@ -1,32 +1,33 @@
 export default class World {
-        constructor() {
+        constructor(sizeWorld=60) {
+		this._sizeWorld = sizeWorld;
                 this._object3d = new THREE.Object3D();
                 this.init();
         }
         init() {
-                let texture = new THREE.TextureLoader().load("images/textures/grass.png");
-                texture.wrapS = THREE.RepeatWrapping;
-                texture.wrapT = THREE.RepeatWrapping;
-                texture.repeat.set(60, 60);
+                let _texture = new THREE.TextureLoader().load("images/textures/grass.png");
+                _texture.wrapS = THREE.RepeatWrapping;
+                _texture.wrapT = THREE.RepeatWrapping;
+		_texture.repeat.set(this._sizeWorld, this._sizeWorld);
 
-                let geometryGround = new THREE.PlaneBufferGeometry(60, 60);
-                let materialGround = new THREE.MeshLambertMaterial({ map: texture, side: THREE.DoubleSide });
-                let plane = new THREE.Mesh(geometryGround, materialGround);
-                plane.rotation.x = - Math.PI / 2;
-                plane.userData.selectable = false;
-                this._object3d.add(plane);
+		let _geometryGround = new THREE.PlaneBufferGeometry(this._sizeWorld, this._sizeWorld);
+                let _materialGround = new THREE.MeshLambertMaterial({ map: _texture, side: THREE.DoubleSide });
+                let _plane = new THREE.Mesh(_geometryGround, _materialGround);
+                _plane.rotation.x = - Math.PI / 2;
+                _plane.userData.selectable = false;
+		this._object3d.add(_plane);
+		
+		let _geometrySkyBox = new THREE.SphereBufferGeometry(this._sizeWorld/2, 32, 32);
+                let _materialSkyBox = new THREE.MeshLambertMaterial({ color: 0x42cbf4, side: THREE.BackSide });
+                let _sphere = new THREE.Mesh(_geometrySkyBox, _materialSkyBox);
+                _sphere.userData.selectable = false;
+                this._object3d.add(_sphere);
 
-                let geometrySkyBox = new THREE.SphereBufferGeometry(30, 32, 32);
-                let materialSkyBox = new THREE.MeshLambertMaterial({ color: 0x42cbf4, side: THREE.BackSide });
-                let sphere = new THREE.Mesh(geometrySkyBox, materialSkyBox);
-                sphere.userData.selectable = false;
-                this._object3d.add(sphere);
-
-                let hemiLight = new THREE.HemisphereLight(0xfffef2, 0xaf8669, 1);
-                hemiLight.position.set(0, 50, 0);
-                this._object3d.add(hemiLight);
+                let _hemiLight = new THREE.HemisphereLight(0xfffef2, 0xaf8669, 1);
+                _hemiLight.position.set(0, 50, 0);
+                this._object3d.add(_hemiLight);
         }
         get object3d(){
-                return this._object3d;
+		return this._object3d;
         }
 }

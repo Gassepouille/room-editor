@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        
-        <title>Room Editor</title>
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        
-        <script src="js/vendor/vue.min.js"></script>
-        <script src="js/vendor/three.min.js"></script>
-        <script src="js/vendor/orbitControls-modified.js"></script>
+	<title>Room Editor</title>
 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	<script src="js/vendor/vue.min.js"></script>
+	<script src="js/vendor/three.min.js"></script>
+	<script src="js/vendor/orbitControls-modified.js"></script>
 </head>
 <body>
-        <div id="ui">
-                <toolbar></toolbar>
-        </div>
-        <div id="editor"></div>
+	<div id="ui">
+		<toolbar></toolbar>
+	</div>
+	<div id="editor"></div>
 
-        <script type="module">
-                import App from './js/App.js';
+	<script type="module">
+		import App from './js/App.js';
 
-                window.onload = (() => {
-                        let app = new App();
-                })       
-        </script>
+		window.onload = (() => {
+			let app = new App();
+		})       
+	</script>
 </body>
 </html>
