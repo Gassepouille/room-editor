@@ -97,13 +97,12 @@ export default class App {
 		function _initDragging(object){
 			if (this._toolWall.active === true){
 				this._toolWall.addTo(this._player.scene);
-				console.log('point', object.point);
 				this._toolWall.start(object.point);
 			}
 		}
 		function _dragging(object){
 			if (this._toolWall.active === true) {
-				this._toolWall.update();
+				this._toolWall.update(object.point);
 			}
 		}
 		function _stopDragging(object){
