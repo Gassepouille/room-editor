@@ -2,9 +2,10 @@ export default class World {
         constructor(sizeWorld=60) {
 		this._sizeWorld = sizeWorld;
                 this._object3d = new THREE.Object3D();
-                this.init();
+                this._init();
+                this._initGrid();
         }
-        init() {
+        _init() {
                 let _texture = new THREE.TextureLoader().load("images/textures/grass.png");
                 _texture.wrapS = THREE.RepeatWrapping;
                 _texture.wrapT = THREE.RepeatWrapping;
@@ -20,12 +21,18 @@ export default class World {
 		let _geometrySkyBox = new THREE.SphereBufferGeometry(this._sizeWorld/2, 32, 32);
                 let _materialSkyBox = new THREE.MeshLambertMaterial({ color: 0x42cbf4, side: THREE.BackSide });
                 let _sphere = new THREE.Mesh(_geometrySkyBox, _materialSkyBox);
-                _sphere.userData.selectable = false;
+                _sphere.userData.pickable = false;
                 this._object3d.add(_sphere);
 
                 let _hemiLight = new THREE.HemisphereLight(0xfffef2, 0xaf8669, 1);
                 _hemiLight.position.set(0, 50, 0);
                 this._object3d.add(_hemiLight);
+        }
+        _initGrid(){
+                let _gridHelper = new THREE.GridHelper(this._sizeWorld, this._sizeWorld, 0x000000, 0x555555);
+                _gridHelper.userData.pickable = false;
+                _gridHelper.position.y = 0.002;
+                this._object3d.add(_gridHelper);
         }
         get object3d(){
 		return this._object3d;

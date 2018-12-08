@@ -8,4 +8,7 @@ export default class ToolSuper {
 	deactivate() {
 		this._active = false;
 	}
+	get active(){
+		return this._active;
+	}
 }
