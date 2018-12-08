@@ -4,7 +4,7 @@ export default class ToolWall extends ToolSuper {
 	constructor() {
 		super();
 		let _geometry = new THREE.BoxBufferGeometry(1, 0.5, 0.1);
-		let _material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+		let _material = new THREE.MeshBasicMaterial({ color: 0x990000 });
 		this._object3d = new THREE.Mesh(_geometry, _material);
 		this._origin = null;
 	}
@@ -30,6 +30,9 @@ export default class ToolWall extends ToolSuper {
 		this._object3d.position.z = this._origin.z + Math.sin(_angle)*_scale/2;
 	}
 	finish(vectorPosition){
-
+		this.update(vectorPosition);
+		let _parent = this._object3d.parent;
+		_parent.remove(this._object3d);
+		_parent.add(this._object3d.clone());
 	}
 }

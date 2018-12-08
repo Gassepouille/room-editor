@@ -107,7 +107,7 @@ export default class App {
 		}
 		function _stopDragging(object){
 			if (this._toolWall.active === true) {
-				this._toolWall.finish();
+				this._toolWall.finish(object.point);
 			}
 		}
 	}
