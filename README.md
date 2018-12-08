@@ -2,7 +2,8 @@
 
 TODO
 - wall tool
-- finish picking logic (selection)
+- remove wall when on the same point
+- wall angles ? 
 
 assets are from :    
 https://icons8.com/
