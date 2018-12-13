@@ -2,7 +2,8 @@
 
 TODO
 - wall tool
-- remove wall when on the same point
+- Check scene when using the wall tool to only pick on floor
+- add tweens in wall movement (if tween available)
 - wall angles ? 
 
 assets are from :    
