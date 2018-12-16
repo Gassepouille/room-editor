@@ -27,12 +27,15 @@ export default class ToolWall extends ToolSuper {
 		let _relativePosition2D = new THREE.Vector2(vectorPosition.x - this._origin.x, vectorPosition.z - this._origin.z);
 		let _angle = - _relativePosition2D.angle();
 		let _scale = this._origin.distanceTo(vectorPosition);
+		// Prevent matrix error (can't have an inexistent object)
 		if(_scale === 0) _scale = 0.0001;
+
 		if (window.TWEEN) {
 			if (this._tween !== null) this._tween.stop();
 			let _this = this;
 
 			if (Math.abs(this._object3d.rotation.y) === 0) this._object3d.rotation.y = - Math.PI*2
+			// Negative angle logic
 			let _alternateRoute = _angle - Math.PI*2;
 
 			// Try to find the shorter angle to the destination
@@ -51,7 +54,6 @@ export default class ToolWall extends ToolSuper {
 			.easing(TWEEN.Easing.Linear.None)
 			.onUpdate(function (values) {
 				_this._object3d.scale.x = values.scale;
-
 				_this._object3d.rotation.y = values.angle;
 				_this._object3d.position.x = _this._origin.x + Math.cos(- values.angle) * values.scale / 2;
 				_this._object3d.position.z = _this._origin.z + Math.sin(- values.angle) * values.scale / 2;
@@ -59,7 +61,6 @@ export default class ToolWall extends ToolSuper {
 			.start();
 		} else {
 			this._object3d.scale.x = _scale;
-			// Calculate rotation wall
 			this._object3d.rotation.y = _angle;
 			this._object3d.position.x = this._origin.x + Math.cos(- _angle) * _scale / 2;
 			this._object3d.position.z = this._origin.z + Math.sin(- _angle) * _scale / 2;
