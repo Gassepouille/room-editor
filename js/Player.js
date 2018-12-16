@@ -47,6 +47,7 @@ export default class Player {
 			onPreRenderFct(delta, now);
 		})
 
+		if(window.TWEEN) TWEEN.update(now * 1000);
 		this._renderer.render(this.scene, this._camera);
 
 		this.onPostRenderFcts.forEach((onPostRenderFct) => {

@@ -3,8 +3,7 @@
 TODO
 - wall tool
 - Check scene when using the wall tool to only pick on floor
-- add tweens in wall movement (if tween available)
-- wall angles ? 
+- wall angles ? (connect wall that join att the same point)
 
 assets are from :    
 https://icons8.com/
