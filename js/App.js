@@ -34,6 +34,13 @@ export default class App {
 	}
 	_initUI() {
 		this._toolBar = new ToolBar();
+		let _this = this;
+		Vue.component('toolbar', {
+			template: _this._toolBar._template,
+			data() { return _this._toolBar.data; },
+			methods: _this._toolBar.methods
+		});
+
 		this._view = new Vue({ el: '#ui' });
 
 		this._toolBar.addTool({

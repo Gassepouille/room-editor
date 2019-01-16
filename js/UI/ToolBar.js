@@ -6,27 +6,24 @@ export default class ToolBar {
 			display: true,
 			activeTool: "camera",
 		}
-
-		let _this = this;
-		Vue.component('toolbar', {
-			template: _this._template,
-			data() { return _this.data; },
-			methods: {
-				clickTool(tool) {
-					if (_this.data.activeTool === tool.name) return;
-					// deactivate all the other tools
-					_this.data.tools.forEach(singleTool => {
-						if (singleTool.deactivate) singleTool.deactivate();
-					});
-					
-					if (tool.activate) tool.activate(); 
-					_this.data.activeTool = tool.name;
-				}
-			}
-		})
 	}
 	addTool(tool) {
 		this.data.tools.push(tool);
+	}
+	get methods (){
+		let _this = this;
+		return {
+			clickTool(tool) {
+				if (_this.data.activeTool === tool.name) return;
+				// deactivate all the other tools
+				_this.data.tools.forEach(singleTool => {
+					if (singleTool.deactivate) singleTool.deactivate();
+				});
+
+				if (tool.activate) tool.activate();
+				_this.data.activeTool = tool.name;
+			}
+		}
 	}
 	get _template() {
 		return `
