@@ -6,6 +6,7 @@ export default class ToolWall extends ToolSuper {
 		let _geometry = new THREE.BoxBufferGeometry(1, 0.5, 0.1);
 		let _material = new THREE.MeshBasicMaterial({ color: 0x990000 });
 		this._object3d = new THREE.Mesh(_geometry, _material);
+		this._object3d.name = "wall";
 		this._origin = null;
 		this._destinationPosition = new THREE.Vector3();
 		this._tween = null;

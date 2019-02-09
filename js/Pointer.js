@@ -41,6 +41,14 @@ export default class Pointer {
 	set onHover(callback) {
 		this._onHover = callback;
 	}
+	setPickableElements(pickableElements=null){
+		if(pickableElements === null){
+			this.updatePickableElements();
+			return;
+		}
+		this._clickableElements = pickableElements;
+
+	}
 	updatePickableElements(){
 		this._clickableElements = [];
 		this._scene.traverseVisible((object3d) => {

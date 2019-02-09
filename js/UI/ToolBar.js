@@ -15,6 +15,10 @@ export default class ToolBar {
 		return {
 			clickTool(tool) {
 				if (_this.data.activeTool === tool.name) return;
+				if(tool.noState === true){
+					if (tool.activate) tool.activate();
+					return;
+				}
 				// deactivate all the other tools
 				_this.data.tools.forEach(singleTool => {
 					if (singleTool.deactivate) singleTool.deactivate();

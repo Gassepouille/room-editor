@@ -13,6 +13,7 @@ export default class Player {
 		this._camera.position.set(3, 3, 3);
 		this._camera.lookAt(new THREE.Vector3(0, 0, 0));
 		this.scene = new THREE.Scene();
+		this.scene.fog = new THREE.FogExp2(0xfff1bf, 0.03);
 
 		this.onPreRenderFcts = [];
 		this.onPostRenderFcts = [];

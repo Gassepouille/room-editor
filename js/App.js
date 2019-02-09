@@ -15,6 +15,19 @@ export default class App {
 		this._iniPointerLogic();
 
 		this._initUI();
+		
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
+		setTimeout(() => {
+			console.clear();	
+		}, 0);
 	}
 	_init3D() {
 		let editorDom = document.querySelector("#editor");
@@ -58,10 +71,46 @@ export default class App {
 			name: "wall",
 			icon: "./images/tools-icon/wall-32px.png",
 			activate: () => {
+				let _clickableElements = [];
+				this._world.object3d.traverseVisible((object3d) => {
+					if (object3d.userData.pickable === false) return;
+					_clickableElements.push(object3d);
+				});
+				this._pointer.setPickableElements(_clickableElements);
 				this._toolWall.activate();
 			},
 			deactivate: () => {
+				this._pointer.setPickableElements();
 				this._toolWall.deactivate();
+			}
+		});
+		this._toolBar.addTool({
+			name: "Complete walls",
+			icon: "./images/tools-icon/connect-32px.png",
+			noState : true,
+			activate: () => {
+				let _walls = [];
+				this._player.scene.traverseVisible((object3d)=>{
+					if (object3d.name !== "wall") return;
+					let _position = object3d.position;
+					let _angle = object3d.rotation.y;
+					let _scale = object3d.scale.x;
+					console.log(object3d.position.x);
+					console.log(object3d.position.y);
+					console.log(object3d.rotation);
+					console.log(_position.x + _scale * Math.cos(_angle));
+					console.log(_position.y + _scale * Math.sin(_angle));
+					_walls.push({
+						a: {
+							x: _position.x + _scale * Math.cos(_angle),
+							y: _position.y + _scale * Math.sin(_angle),
+						},
+						// b: {
+						// 	x: _position.x - _scale * Math.cos(_angle),
+						// 	y: _position.y - _scale * Math.sin(_angle),
+						// }
+					});
+				})
 			}
 		});
 	}
