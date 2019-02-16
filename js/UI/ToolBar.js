@@ -10,22 +10,29 @@ export default class ToolBar {
 	addTool(tool) {
 		this.data.tools.push(tool);
 	}
+	setActiveTool(toolName){
+		let _tool = this.data.tools.find((tool) => tool.name === toolName);
+		
+		if(!_tool)return;
+		if (this.data.activeTool === _tool.name) return;
+		
+		if (_tool.noState === true) {
+			if (_tool.activate) _tool.activate();
+			return;
+		}
+		// deactivate all the other tools
+		this.data.tools.forEach(singleTool => {
+			if (singleTool.deactivate) singleTool.deactivate();
+		});
+
+		if (_tool.activate) _tool.activate();
+		this.data.activeTool = _tool.name;
+	}
 	get methods (){
 		let _this = this;
 		return {
 			clickTool(tool) {
-				if (_this.data.activeTool === tool.name) return;
-				if(tool.noState === true){
-					if (tool.activate) tool.activate();
-					return;
-				}
-				// deactivate all the other tools
-				_this.data.tools.forEach(singleTool => {
-					if (singleTool.deactivate) singleTool.deactivate();
-				});
-
-				if (tool.activate) tool.activate();
-				_this.data.activeTool = tool.name;
+				_this.setActiveTool(tool.name);
 			}
 		}
 	}

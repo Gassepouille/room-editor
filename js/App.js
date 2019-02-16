@@ -15,19 +15,6 @@ export default class App {
 		this._iniPointerLogic();
 
 		this._initUI();
-		
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		// TODO REMOVE THAT STUFF : REALLY REALLY BAD 
-		setTimeout(() => {
-			console.clear();	
-		}, 0);
 	}
 	_init3D() {
 		let editorDom = document.querySelector("#editor");
@@ -85,7 +72,7 @@ export default class App {
 			}
 		});
 		this._toolBar.addTool({
-			name: "Complete walls",
+			name: "complete walls",
 			icon: "./images/tools-icon/connect-32px.png",
 			noState : true,
 			activate: () => {
@@ -95,24 +82,23 @@ export default class App {
 					let _position = object3d.position;
 					let _angle = object3d.rotation.y;
 					let _scale = object3d.scale.x;
-					console.log(object3d.position.x);
-					console.log(object3d.position.y);
-					console.log(object3d.rotation);
-					console.log(_position.x + _scale * Math.cos(_angle));
-					console.log(_position.y + _scale * Math.sin(_angle));
+					// Check if angle is clockwise or anti-clockwise
+					if (_angle > 0) _angle = - _angle;
+
 					_walls.push({
 						a: {
-							x: _position.x + _scale * Math.cos(_angle),
-							y: _position.y + _scale * Math.sin(_angle),
+							x: _position.x + _scale / 2 * Math.cos(_angle),
+							z: _position.z + _scale / 2 * Math.sin(_angle),
 						},
-						// b: {
-						// 	x: _position.x - _scale * Math.cos(_angle),
-						// 	y: _position.y - _scale * Math.sin(_angle),
-						// }
+						b: {
+							x: _position.x - _scale / 2 * Math.cos(_angle),
+							z: _position.z - _scale / 2 * Math.sin(_angle),
+						}
 					});
 				})
 			}
 		});
+		this._toolBar.setActiveTool("wall");
 	}
 	_iniPointerLogic() {
 		this._pointer = new Pointer(this._player.rendererDomElement);
