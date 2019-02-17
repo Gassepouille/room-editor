@@ -76,7 +76,8 @@ export default class App {
 			icon: "./images/tools-icon/connect-32px.png",
 			noState : true,
 			activate: () => {
-				let _walls = [];
+				let _singlePoints = [];
+				let _fullPoints = [];
 				let _round = 10000;
 				this._player.scene.traverseVisible((object3d)=>{
 					if (object3d.name !== "wall") return;
@@ -84,23 +85,39 @@ export default class App {
 					let _angle = object3d.rotation.y;
 					let _scale = object3d.scale.x;
 
-					let pointAx = Math.round((_position.x + _scale / 2 * Math.cos(_angle)) * _round) / _round;
-					let pointAz = Math.round((_position.z + _scale / 2 * - Math.sin(_angle)) * _round) / _round;
-					let pointBx = Math.round((_position.x - _scale / 2 * Math.cos(_angle)) * _round) / _round;
-					let pointBz = Math.round((_position.z - _scale / 2 * - Math.sin(_angle)) * _round) / _round;
+					let _pointAx = Math.round((_position.x + _scale / 2 * Math.cos(_angle)) * _round) / _round;
+					let _pointAz = Math.round((_position.z + _scale / 2 * - Math.sin(_angle)) * _round) / _round;
+					let _pointBx = Math.round((_position.x - _scale / 2 * Math.cos(_angle)) * _round) / _round;
+					let _pointBz = Math.round((_position.z - _scale / 2 * - Math.sin(_angle)) * _round) / _round;
 
-					_walls.push({
-						a: {
-							x: pointAx,
-							z: pointAz,
-						},
-						b: {
-							x: pointBx,
-							z: pointBz,
-						}
-					});
+					let _pointA = new THREE.Vector2(_pointAx, _pointAz);
+					let _pointB = new THREE.Vector2(_pointBx, _pointBz);
+
+					_processPoint(_pointA);
+					_processPoint(_pointB);
 				});
-				console.log(_walls);
+
+				console.log(_singlePoints);
+				// pair closest point, find center and length
+
+
+
+				return;
+				// A bit hard to read, but better perf than 2 nested loops
+				function _processPoint(point){
+					let _found = false
+					for (let i = 0; i < _fullPoints.length; i++) {
+						if (point.equals(_fullPoints[i])) _found = true;
+					}
+					if (!_found) {
+						_singlePoints.push(point);
+						_fullPoints.push(point);
+					} else {
+						_singlePoints = _singlePoints.filter((pointToCheck) => {
+							return pointToCheck.equals(point) !== true;
+						})
+					}
+				}
 			}
 		});
 		this._toolBar.setActiveTool("wall");
