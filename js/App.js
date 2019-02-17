@@ -77,25 +77,30 @@ export default class App {
 			noState : true,
 			activate: () => {
 				let _walls = [];
+				let _round = 10000;
 				this._player.scene.traverseVisible((object3d)=>{
 					if (object3d.name !== "wall") return;
 					let _position = object3d.position;
 					let _angle = object3d.rotation.y;
 					let _scale = object3d.scale.x;
-					// Check if angle is clockwise or anti-clockwise
-					if (_angle > 0) _angle = - _angle;
+
+					let pointAx = Math.round((_position.x + _scale / 2 * Math.cos(_angle)) * _round) / _round;
+					let pointAz = Math.round((_position.z + _scale / 2 * - Math.sin(_angle)) * _round) / _round;
+					let pointBx = Math.round((_position.x - _scale / 2 * Math.cos(_angle)) * _round) / _round;
+					let pointBz = Math.round((_position.z - _scale / 2 * - Math.sin(_angle)) * _round) / _round;
 
 					_walls.push({
 						a: {
-							x: _position.x + _scale / 2 * Math.cos(_angle),
-							z: _position.z + _scale / 2 * Math.sin(_angle),
+							x: pointAx,
+							z: pointAz,
 						},
 						b: {
-							x: _position.x - _scale / 2 * Math.cos(_angle),
-							z: _position.z - _scale / 2 * Math.sin(_angle),
+							x: pointBx,
+							z: pointBz,
 						}
 					});
-				})
+				});
+				console.log(_walls);
 			}
 		});
 		this._toolBar.setActiveTool("wall");

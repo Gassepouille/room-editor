@@ -16,10 +16,13 @@ export default class ToolWall extends ToolSuper {
 	}
 	start(vectorPosition) {
 		this._origin = vectorPosition.clone();
-		this._object3d.scale.x = 0.1;
 		this._object3d.position.x = vectorPosition.x;
 		this._object3d.position.y = 0.5 / 2;
 		this._object3d.position.z = vectorPosition.z;
+		
+		// Initiate values to prevent weird animation to go to default values
+		this._object3d.rotation.y =0.0001;
+		this._object3d.scale.x = 0.0001;
 	}
 	update(vectorPosition) {
 		if (this._destinationPosition.equals(vectorPosition)) return;
@@ -72,14 +75,22 @@ export default class ToolWall extends ToolSuper {
 			this._tween.onComplete(()=>{
 				this.update(vectorPosition);
 				let _parent = this._object3d.parent;
+				this._object3d.rotation.y = this._object3d.rotation.y % Math.PI;
 				_parent.remove(this._object3d);
-				_parent.add(this._object3d.clone());
+				let _newObject = this._object3d.clone();
+				// Clone euler rotation (eulers are not unique and threejs quaternion based)
+				_newObject.rotation.copy(this._object3d.rotation);
+				_parent.add(_newObject);
 			})
 		}else{
 			this.update(vectorPosition);
 			let _parent = this._object3d.parent;
+			this._object3d.rotation.y = this._object3d.rotation.y % Math.PI;
 			_parent.remove(this._object3d);
-			_parent.add(this._object3d.clone());
+			let _newObject = this._object3d.clone();
+			// Clone euler rotation (eulers are not unique and threejs quaternion based)
+			_newObject.rotation.copy(this._object3d.rotation);
+			_parent.add(_newObject);
 		}
 	}
 }

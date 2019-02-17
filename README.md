@@ -3,7 +3,7 @@
 TODO
 - wall tool
 - wall angles ? (connect wall that join at the same point)
-- continue calculation to join walls on the tool complete walls
+- create walls that connect each others
 - add wallpaper on both side
 - add automatic completion 
 
